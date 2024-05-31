@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Data and Display in HTML Table</title>
+  <link rel="stylesheet" href="/hms/css/addspecial.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+ 
+</head>
+<body>
+  <div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bx-plus-medical'></i>
+
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt' ></i>
+         
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="admin-dashborad.html">Dashboard</a></li>
+        </ul>
+      </li>
+
+      <li>
+         <div class="iocn-link">
+           <a href="#">
+            <i class='bx bxs-user'></i>
+     
+           </a>
+           <i class='bx bxs-chevron-down arrow' ></i>
+         </div>
+         <ul class="sub-menu">
+           <li><a class="link_name" href="#">Doctor</a></li>
+           <li><a href="Addoctor.html">ADD Doctor</a></li>
+           <li><a href="adddoctorspecialization.html">ADD Specialization</a></li>
+           <li><a href="Managedoctor.html">Manage Doctor</a></li>
+         </ul>
+       </li>
+       <li>
+      
+         <li>
+            <div class="iocn-link">
+              <a href="#">
+               <i class='bx bxs-user-plus'></i>
+          
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Patient</a></li>
+              <li><a href="Managepatient.html">Manage Patient</a></li>
+            </ul>
+          </li>
+          <li>
+
+
+
+        <li>
+          <a href="#">
+            <i class='bx bxs-calendar-edit' ></i>
+           
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="appointenthistory.html">Appointments</a></li>
+          </ul>
+        </li>
+        
+          <li>
+            <a href="#">
+               <i class='bx bx-search' ></i>
+          
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="patientsearch.html">Search</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <a href="#">
+               <i class='bx bx-question-mark' ></i>
+           
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="Admin/queries.html">Queries</a></li>
+            </ul>
+          </li>
+        
+          <li>
+            <a href="#">
+              <i class='bx bx-log-out' ></i>
+             
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/index.html">Logout</a></li>
+            </ul>
+          </li>
+          <li>
+     
+   
+  </li>
+</ul>
+  </div>
+
+
+  <div class="container">
+    <div id="newtask">
+      <input type="text" placeholder="Add Specialization.."  id="d">
+      <button id="add">Add</button>
+    </div>
+  </div>
+  <div class="container">
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Specialization</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody id="data">
+     
+      </tbody>
+    </table>
+  </div>
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:3000/specialization");
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return []; 
+      }
+    }
+
+    async function displayData() {
+      const data = await fetchData();
+      const tableBody = document.getElementById('data');
+      tableBody.innerHTML = '';
+
+      data.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.special}</td>
+          <td><button onclick="deleteSpecialization(${item.id})">Delete</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    async function addSpecialization() {
+  const specializationInput = document.getElementById('d').value;
+      if(!specializationInput)
+      {
+        alert("Enter the Specialization");
+        return;
+      }
+  try {
+    const data = await fetchData();
+    let exists = false;
+
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      if (specializationInput.toLowerCase() === item.special.toLowerCase()) {
+        exists = true;
+        break; 
+      } else if (specializationInput === item.special.toLowerCase()) {
+        exists = true;
+        break; 
+      }
+    }
+
+    if (exists) {
+      alert("Specialization Already Exists");
+      return; 
+    }
+
+    const id = data.length + 1;
+
+    const response = await fetch("http://localhost:3000/specialization", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id.toString(), special: specializationInput })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add specialization');
+    }
+
+   
+    displayData();
+  } catch (error) {
+    console.error('Error adding specialization:', error);
+  }
+}
+
+  
+
+    async function deleteSpecialization(id) {
+  try {
+    const response = await fetch(`http://localhost:3000/specialization/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      alert("Data Deleted Successfully");
+    } else {
+      console.error('Failed to delete specialization:', response.statusText);
+    }
+
+    displayData();
+  } catch (error) {
+    console.error('Error deleting specialization:', error);
+  }
+}
+
+    document.getElementById('add').addEventListener('click', addSpecialization);
+    displayData();
+  </script>
+</body>
+</html>

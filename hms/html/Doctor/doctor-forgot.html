@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/forgot.css">
+    <title>Reset Password</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Reset Password</h1>
+        <div class="form">
+            <form action="">
+                <label>Username</label>
+                <input type="text" placeholder="Enter username" id="username" required>
+                <label>New Password</label>
+                <input type="password" placeholder="Enter New Password" id="newpassword" required>
+                <input type="submit" value="Reset" id="reset">
+                <input type="submit" value="Back to Sign In" id="back">
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('back').addEventListener('click', function() {
+            window.location.href = "doctor-login.html";
+        });
+
+        document.getElementById('reset').addEventListener('click', function(event) {
+            event.preventDefault();
+            updatepassword();
+        });
+
+        async function fetchData() {
+            try {
+                const response = await fetch("http://localhost:3000/Doctordata");
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        async function updatepassword() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('newpassword').value;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@])[A-Za-z\d@]{8,}$/;
+
+            if (!passwordRegex.test(password)) {
+                alert("Password must start with a capital letter, contain numbers, include the '@' symbol, and be at least 8 characters long.");
+                return;
+            }
+
+            const data = await fetchData();
+            const existingUser = data.find(user => user.email === username);
+
+            if (existingUser) {
+                try {
+                    const response = await fetch(`http://localhost:3000/Doctordata/${existingUser.id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ pass: password, cpass: password })
+                    });
+                    if (response.ok) {
+                        alert("Password Updated Successfully");
+                    } else {
+                        console.error('Something Went wrong', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            } else {
+                alert("User not Present");
+            }
+        }
+    </script>
+</body>
+</html>

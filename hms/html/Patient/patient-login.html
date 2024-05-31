@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/patient-login.css">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div id="nav"></div>
+    <h1 id="h">Welcome To DocPulse</h1>
+    <div class="container" id="container">
+     
+        <div class="form-container sign-up">
+            <form>
+                <h1>Create Account</h1>
+            
+        
+                <input type="text" placeholder="Name" id="pname" >
+                <input type="email" placeholder="Email" id="pemail" >
+                <input type="text" placeholder="Address" id="address" >
+                <input type="text" placeholder="Contact" id="contact" >
+                <input type="text" placeholder="Gender" id="gender" >
+                <input type="text" placeholder="Age" id="age" >
+              <input type="password" placeholder="Password" id="ppass" >
+              <input type="password" placeholder="Confirm Password" id="cpass" >
+                <button id="signup" >Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>Sign In</h1>
+           
+                <input type="email" placeholder="Email" id="email" required>
+                <input type="password" placeholder="Password" id="password" required>
+                <a href="/hms/html/Patient/patient-forgot.html">Forget Your Password?</a>
+                <button id="signin">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Welcome, sir!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+   async function fetchData() {
+    try {
+        const response = await fetch("http://localhost:3000/patientdata");
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+async function addPatientDetails(e) {
+    e.preventDefault();
+
+    try {
+        const data = await fetchData();
+        const pname = document.getElementById('pname').value;
+        const pemail = document.getElementById('pemail').value;
+        const address = document.getElementById('address').value;
+        const gender = document.getElementById('gender').value;
+        const contact = document.getElementById('contact').value;
+        const age = document.getElementById('age').value;
+        const ppass = document.getElementById('ppass').value;
+        const cpass = document.getElementById('ppass').value;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@])[A-Za-z\d@]{8,}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(ppass!=cpass)
+        {   alert("Password Does not Match")
+            return[];
+        }
+
+        if (!pname || !pemail || !ppass || !cpass||!address||!age ||!contact) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+        if (!emailRegex.test(pemail)) {
+        alert("Please enter a valid email address.");
+        document.getElementById('pemail').value="";
+        return;
+    }
+        if (!passwordRegex.test(ppass) ) {
+            alert("Password must start with a capital letter, contain numbers, include the '@' symbol, and be at least 8 characters long.");
+            document.getElementById('ppass').value="";
+            return;
+    }
+       
+
+        const existingUser = data.find(user => user.email === pemail);
+        if (existingUser) {
+            alert("Email already exists. Please choose a different email.");
+            document.getElementById('pemail').value="";
+            
+            return;
+        }
+        const existingpass = data.find(user => user.password.toString() === ppass.toString());
+        if (existingpass) {
+            alert(" choose a different Password.");
+            document.getElementById('ppass').value="";
+            return;
+        }
+
+        const id = data.length+1;
+
+        const response = await fetch("http://localhost:3000/patientdata", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id.toString(), name: pname, email: pemail,Address:address,Contact:contact,gender:gender,Age:age ,password: ppass,confirm:cpass })
+        });
+
+        if (response.ok) {
+            alert("Signup Successful");
+        } else {
+            alert("Signup Failed");
+        }
+    } catch (error) {
+        console.error('Error adding patient details:', error);
+        alert("Error: Signup Failed");
+    }
+}
+
+
+   
+    async function getPatientDetails(e) {
+    try {
+        e.preventDefault();
+        const response = await fetch("http://localhost:3000/patientdata");
+      
+      
+        const responseData = await response.json();
+    
+            const inputEmail = document.getElementById('email').value;
+            const inputPassword = document.getElementById('password').value;
+            let myname;
+        
+            let isMatch = false;
+            responseData.forEach(patient => {
+                if (patient.email === inputEmail && patient.password === inputPassword) {
+                
+                    isMatch = true;
+                    myname=patient.name
+                    
+                }
+            });
+            
+            if (isMatch) {
+                alert("Login Successful");
+                sessionStorage.setItem('username',myname);
+                window.location.href='patient-dashboard.html'
+                
+    
+           
+    
+
+            } else {
+                alert('Invalid email or password');
+            }
+       
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+document.getElementById('signin').addEventListener('click', getPatientDetails);
+
+
+    document.getElementById('signup').addEventListener('click', addPatientDetails);
+       
+       </script>
+    <script src="/hms/js/patient-login.js"></script>
+    
+</body>
+
+</html>

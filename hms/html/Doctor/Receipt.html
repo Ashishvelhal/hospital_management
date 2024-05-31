@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Doctor Receipt</title>
+    <link rel="stylesheet" href="/hms/css/receipt.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+    @media print {
+      #sub{
+        display: none;
+      }
+      .bx{
+        display: none;
+      }
+    }
+   </style>
+   
+    </head>
+
+<body>
+    <div class="sidebar close">
+
+        <div class="logo-details">
+          <i class='bx bx-plus-medical'></i>
+          
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="#">
+              <i class='bx bx-grid-alt' ></i>
+         
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="doctor-dashboard.html">Dashboard</a></li>
+            </ul>
+          </li>
+    
+          <li>
+            <a href="#">
+              <i class='bx bxs-calendar-check'></i>
+             
+              
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="todaysapp.html">Todays Appointment</a></li>
+            </ul>
+          </li>
+          
+          
+              <li>
+                <a href="#">
+                  <i class='bx bxs-receipt'></i>
+                  
+                </a>
+                <ul class="sub-menu blank">
+                  <li><a class="link_name" href="Receipt.html">Receipt</a></li>
+                </ul>
+              </li>
+              
+            
+            
+              <li>
+                <a href="#">
+                  <i class='bx bx-log-out' ></i>
+                  <span class="link_name" id="1">Logout</span>
+                </a>
+                <ul class="sub-menu blank">
+                  <li><a class="link_name" href="/index.html">Logout</a></li>
+                </ul>
+              </li>
+              <li>
+         
+       
+      </li>
+    </ul>
+      </div>
+  <div class="main">
+    <h1>Welcome To DocPulse</h1>
+    <div class="container">
+      <div class="content">
+        <div class="left-side">
+          <div class="address details">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="topic">Address</div>
+            <div class="text-one">Dhankawadi, Pune43</div>
+            <div class="text-two">xyz</div>
+          </div>
+          <div class="phone details">
+            <i class="fas fa-phone-alt"></i> 
+            <div class="topic">Phone</div>
+            <div class="text-one">+0098 9893 </div>
+            <div class="text-two">+0096 3434 </div>
+          </div>
+          <div class="email details">
+            <i class="fas fa-envelope"></i>
+            <div class="topic">Email</div>
+            <div class="text-one">DocPulse@gmail.com</div>
+            <div class="text-two">info.jeevan@gmail.com</div>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="topic-text">Doctor's Receipt</div>
+        
+       
+          <div class="input-box">
+            <input type="text" placeholder="Enter Patient name" id="name" required>
+          </div>
+          <div class="input-box message-box">
+            <input type="textarea" placeholder="Prescription" id="pres" required>
+        </div>
+          <div class="input-box">
+            <input type="text" placeholder="Amount" id="amt" required>
+          </div>
+          
+          <div class="button">
+            <input type="button" value="Print" id="sub" >
+          </div>
+     
+      </div>
+      </div>
+  </div>
+<script>
+    document.getElementById('sub').addEventListener('click',function(){
+        window.print();
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+.footer {
+    padding: 80px 50px;
+    padding: 30px;
+    padding-bottom: 0px;
+    background-color: #444;
+    color: #FFF; }
+    @media screen and (max-width: 940px) {
+      .footer {
+        padding: 50px 10px; } }
+    .footer h2 {
+      font-size: 26px;
+      margin-top: 10px; }
+    .footer p {
+      text-align: justify;
+      text-indent: 20px; }
+    .footer .link-list li {
+      padding: 10px;
+      border-bottom: 1px solid #6C6C6C; }
+      .footer .link-list li a {
+        color: #FFF; }
+      .footer .link-list li i {
+        float: right; }
+    .footer .map-img {
+      font-weight: 600;
+      font-size: 17px;
+      padding-left: 20px; }
+    .footer address a {
+      color: #FFF; }
+  
+  .copy {
+    padding: 20px;
+    background-color: #2E2E2E;
+    color: #FFF; }
+    .copy a {
+      color: #FFF; }
+    .copy span {
+      float: right; }
+      .copy span i {
+        margin-right: 20px; }
+  
+  .kf-2 {
+    background-color: #FCFCFC;
+    padding: 80px 50px; }
+    @media screen and (max-width: 940px) {
+      .kf-2 {
+        padding: 50px 10px; } }
+    .kf-2 .single-key {
+      box-shadow: 0 2px 3px 0 rgba(218, 218, 253, 0.35), 0 0px 3px 0 rgba(206, 206, 238, 0.35); }

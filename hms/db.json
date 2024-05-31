@@ -1,0 +1,121 @@
+{
+  "specialization": [
+    {
+      "id": "1",
+      "special": "Allergy and Immunology"
+    },
+    {
+      "id": "2",
+      "special": "Obstetrics and Gynecology"
+    },
+    {
+      "id": "3",
+      "special": "ENT"
+    },
+    {
+      "id": "4",
+      "special": "physio"
+    }
+  ],
+  "patientdata": [
+    {
+      "id": "1",
+      "name": "Ruthvik",
+      "email": "ruthvikwadkar@gmail.com",
+      "Address": "Pune",
+      "Contact": "7841849314",
+      "gender": "male",
+      "Age": "22",
+      "password": "Ruthvik@5262",
+      "confirm": "Ruthvik@5262"
+    },
+    {
+      "id": "2",
+      "name": "Ayush",
+      "email": "ayush@gmail.com",
+      "Address": "Pune",
+      "Contact": "7845147410",
+      "gender": "Male",
+      "Age": "23",
+      "password": "Ayush@123",
+      "confirm": "Ayush@123"
+    }
+  ],
+  "Doctordata": [
+    {
+      "id": "1",
+      "special": "Allergy and Immunology",
+      "name": "Dr Rao",
+      "email": "dr.rao@gmail.com",
+      "contact": "7845965874",
+      "date": "2024-04-24",
+      "pass": "Rao@5262",
+      "cpass": "Rao@5262"
+    },
+    {
+      "id": "2",
+      "special": "ENT",
+      "name": "Dr Raut",
+      "email": "dr.raut@gmail.com",
+      "contact": "7412598654",
+      "date": "2024-04-21",
+      "pass": "raut@123",
+      "cpass": "raut@123"
+    },
+    {
+      "id": "3",
+      "special": "Allergy and Immunology",
+      "name": "anuj",
+      "email": "dr.anuj@gmail.com",
+      "contact": "7841546325",
+      "date": "2024-04-21",
+      "pass": "dr",
+      "cpass": "dr"
+    },
+    {
+      "id": "4",
+      "special": "Allergy and Immunology",
+      "name": "Dr Sakshi",
+      "email": "sakshi@gmail.com",
+      "contact": "7412458744",
+      "date": "2024-04-26",
+      "pass": "Sakshi@123",
+      "cpass": "Sakshi@123"
+    },
+    {
+      "id": 5,
+      "special": "ENT",
+      "name": "Dr Doshi",
+      "email": "dr.doshi@gmail.com",
+      "contact": "866823141",
+      "date": "2024-04-27",
+      "pass": "Doshi@123",
+      "cpass": "Doshi@123"
+    }
+  ],
+  "BookAppointment": [
+    {
+      "id": "1",
+      "specialization": "Allergy and Immunology",
+      "dname": "Dr Rao",
+      "pname": "Ruthvik",
+      "pcontact": "7841849314",
+      "date": "2024-04-27",
+      "time": "10:00 AM"
+    }
+  ],
+  "queries": [
+    {
+      "id": "1",
+      "name": "Ruthvik",
+      "email": "ruthvikwadkar@gmail.com",
+      "message": "abcd"
+    },
+    {
+      "id": "2",
+      "name": "Ruthvik",
+      "email": "ruthvikwadkar@gmail.com",
+      "message": "xttser"
+    }
+  ]
+}

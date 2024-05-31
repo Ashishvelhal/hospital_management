@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/queries.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <title>Queries</title>
+  
+</head>
+<body>
+ 
+  <div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bx-plus-medical'></i>
+      
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt' ></i>
+     
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="admin-dashborad.html">Dashboard</a></li>
+        </ul>
+      </li>
+
+      <li>
+         <div class="iocn-link">
+           <a href="#">
+            <i class='bx bxs-user'></i>
+             
+           </a>
+           <i class='bx bxs-chevron-down arrow' ></i>
+         </div>
+         <ul class="sub-menu">
+           <li><a class="link_name" href="#">Doctor</a></li>
+           <li><a href="Addoctor.html">ADD Doctor</a></li>
+           <li><a href="adddoctorspecialization.html">ADD Specialization</a></li>
+           <li><a href="Managedoctor.html">Manage Doctor</a></li>
+         </ul>
+       </li>
+       <li>
+      
+         <li>
+            <div class="iocn-link">
+              <a href="#">
+               <i class='bx bxs-user-plus'></i>
+                
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Patient</a></li>
+              <li><a href="Managepatient.html">Manage Patient</a></li>
+            </ul>
+          </li>
+          <li>
+
+
+
+        <li>
+          <a href="#">
+            <i class='bx bxs-calendar-edit' ></i>
+            
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="appointenthistory.html">Appointments</a></li>
+          </ul>
+        </li>
+        
+          <li>
+            <a href="#">
+               <i class='bx bx-search' ></i>
+              
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="patientsearch.html">Search</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <a href="#">
+               <i class='bx bx-question-mark' ></i>
+            
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="queries.html">Queries</a></li>
+            </ul>
+          </li>
+        
+          <li>
+            <a href="#">
+              <i class='bx bx-log-out' ></i>
+              <span class="link_name" id="1">Logout</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/index.html">Logout</a></li>
+            </ul>
+          </li>
+          <li>
+     
+   
+  </li>
+</ul>
+  </div>
+
+  <h1>Queries</h1>
+
+  <div class="container">
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Message</th>
+        <th scope="col">Action</th>
+       
+      </tr>
+    </thead>
+    <tbody id="data">
+   
+    </tbody>
+  </table>
+</div>
+<script>
+     async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:3000/queries");
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return []; 
+      }
+    }
+
+    async function displayData() {
+      const data = await fetchData();
+      const tableBody = document.getElementById('data');
+      tableBody.innerHTML = '';
+
+      data.forEach((query, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${query.id}</td>
+          <td>${query.name}</td>
+          <td>${query.email}</td>
+          <td>${query.message}</td>
+         
+          <td><button onclick="deletequery(${query.id})">Delete</button></td>
+     
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+    async function deletequery(id) {
+  try {
+    const i=id.toString();
+    const response = await fetch(`http://localhost:3000/querydata/${i}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      alert("Data Deleted Successfully");
+    } else {
+      console.error('Failed to delete query Data:', response.statusText);
+    }
+
+    displayData();
+  } catch (error) {
+    console.error('Error deleting Query:', error);
+  }
+}
+
+displayData();
+</script>
+    
+</body>
+</html>

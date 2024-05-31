@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/profile.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <title>Book Appointment</title>
+</head>
+<body>
+  <div class="sidebar close">
+
+    <div class="logo-details">
+      <i class='bx bx-plus-medical'></i>
+      
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt' ></i>
+     
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="patient-dashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+
+        
+          <li>
+            <a href="#">
+              <i class='bx bxs-user'></i>
+              
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="updateprofile.html">Update profile</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bxs-calendar-plus'></i>
+              
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="Bookappointment.html">Book Appointment</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <a href="#">
+              <i class='bx bxs-calendar-check' ></i>
+              
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="Appointmenthistory.html">My Appointments</a></li>
+            </ul>
+          </li>
+          
+        
+          <li>
+            <a href="#">
+              <i class='bx bx-log-out' ></i>
+              <span class="link_name" id="1">Logout</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/index.html">Logout</a></li>
+            </ul>
+          </li>
+          <li>
+     
+   
+  </li>
+</ul>
+  </div>
+    <div class="container">
+        <h1 class="heading">Book Appointment</h1>
+       <div class="form">
+        <form  id="bookForm" action="">
+            <label for="special">Symptoms</label>
+            <select id="sp" name="special">
+            
+            </select>
+            <label for="special">Doctors</label>
+            <select id="doc" name="special">
+            
+            </select>
+           
+            <label>Patient name</label>
+            <input type="text"  required id="pname">
+            <label>Contact</label>
+            <input type="text" placeholder="Enter your Contact Number" required id="pcontact">
+            <label>Todays Date</label>
+            <input type="date"  required id="date">
+            <label for="timeSlot">Time Slot</label>
+            
+            <select id="timeSlot">
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
+              <option value="04:00 PM">04:00 PM</option>
+              <option value="05:00 PM">05:00 PM</option>
+              <option value="05:00 PM">06:00 PM</option>
+              <option value="05:00 PM">7:00 PM</option>
+            </select>
+           
+<input type="submit" value="Book Appointment">
+
+
+        </form>
+        
+       </div>
+    </div>
+   <script>
+     async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:3000/BookAppointment");
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+      }
+    }
+      document.addEventListener('DOMContentLoaded', function () {
+            
+            fetch('http://localhost:3000/specialization')
+                .then(response => response.json())
+                .then(data => {
+                    const selectElement = document.getElementById('sp');
+
+                    
+                    selectElement.innerHTML = '';
+
+                  
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.special;
+                        option.textContent = item.special;
+                        selectElement.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+
+
+                fetch('http://localhost:3000/Doctordata')
+                .then(response => response.json())
+                .then(data => {
+                    const selectElement = document.getElementById('doc');
+
+                    
+                    selectElement.innerHTML = '';
+
+                  
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.name;
+                        option.textContent = item.name;
+                        selectElement.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+      
+      
+      );
+
+        async function bookappointment() {
+          const response=await fetchData();
+     
+          const id=response.length+1;
+            const specialization = document.getElementById('sp').value;
+            const doctorName = document.getElementById('doc').value;
+            const patientName = document.getElementById('pname').value;
+            const contact = document.getElementById('pcontact').value;
+            const date = document.getElementById('date').value;
+            const timeSlot = document.getElementById('timeSlot').value;
+
+            const appointmentData = {
+              id:id.toString(),
+                specialization: specialization,
+                dname: doctorName,
+                pname: patientName,
+                pcontact: contact,
+                date: date,
+                time: timeSlot
+            };
+
+            try {
+                const response = await fetch("http://localhost:3000/BookAppointment", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+
+                if (response.ok) {
+                    alert("Appointment booked successfully!");
+                } else {
+                    throw new Error('Failed to book appointment');
+                }
+            } catch (error) {
+                console.error('Error booking appointment:', error);
+                alert("Failed to book appointment");
+            }
+        }
+
+        const form = document.getElementById('bookForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            bookappointment();
+        });
+   </script> 
+</body>
+</html>

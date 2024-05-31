@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="/hms/css/admindash.css">
+
+
+  
+
+</head>
+<body >
+  <img src="/hms/images/software-engineer.png" alt="" id="myimg">
+  <h1 id="usernameDisplay">Admin</h1>
+
+    <div class="sidebar close">
+
+        <div class="logo-details">
+          <i class='bx bx-plus-medical'></i>
+          
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="#">
+              <i class='bx bx-grid-alt' ></i>
+         
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="admin-dashborad.html">Dashboard</a></li>
+            </ul>
+          </li>
+    
+          <li>
+             <div class="iocn-link">
+               <a href="#">
+                <i class='bx bxs-user'></i>
+                 
+               </a>
+               <i class='bx bxs-chevron-down arrow' ></i>
+             </div>
+             <ul class="sub-menu">
+               <li><a class="link_name" href="#">Doctor</a></li>
+               <li><a href="Addoctor.html">ADD Doctor</a></li>
+               <li><a href="adddoctorspecialization.html">ADD Specialization</a></li>
+               <li><a href="Managedoctor.html">Manage Doctor</a></li>
+             </ul>
+           </li>
+           <li>
+          
+             <li>
+                <div class="iocn-link">
+                  <a href="#">
+                   <i class='bx bxs-user-plus'></i>
+                    
+                  </a>
+                  <i class='bx bxs-chevron-down arrow' ></i>
+                </div>
+                <ul class="sub-menu">
+                  <li><a class="link_name" href="#">Patient</a></li>
+                  <li><a href="Managepatient.html">Manage Patient</a></li>
+                </ul>
+              </li>
+              <li>
+    
+    
+    
+            <li>
+              <a href="#">
+                <i class='bx bxs-calendar-edit' ></i>
+                
+              </a>
+              <ul class="sub-menu blank">
+                <li><a class="link_name" href="appointenthistory.html">Appointments</a></li>
+              </ul>
+            </li>
+            
+              <li>
+                <a href="#">
+                   <i class='bx bx-search' ></i>
+                  
+                </a>
+                <ul class="sub-menu blank">
+                  <li><a class="link_name" href="patientsearch.html">Search</a></li>
+                </ul>
+              </li>
+              
+              <li>
+                <a href="#">
+                   <i class='bx bx-question-mark' ></i>
+                
+                </a>
+                <ul class="sub-menu blank">
+                  <li><a class="link_name" href="queries.html">Queries</a></li>
+                </ul>
+              </li>
+            
+              <li>
+                <a href="#">
+                  <i class='bx bx-log-out' ></i>
+                  <span class="link_name" id="1">Logout</span>
+                </a>
+                <ul class="sub-menu blank">
+                  <li><a class="link_name" href="/index.html">Logout</a></li>
+                </ul>
+              </li>
+              <li>
+         
+       
+      </li>
+    </ul>
+      </div>
+
+      <div class="container">
+    
+     <h3 class="heading">Welcome To DocPulse</h3>
+    <h1 class="h">Admin Dashboard</h1>
+
+    <div class="box-container">
+    
+        <div class="box">
+          <i class='bx bxs-user'></i>
+            <h3>Manage Doctors</h3>
+            
+            <a href="Managedoctor.html" class="btn">View</a>
+        </div>
+        <div class="box">
+          <i class='bx bxs-user'></i>
+            <h3>Manage Paients</h3>
+            
+            <a href="Managepatient.html" class="btn">View</a>
+        </div>
+        <div class="box">
+          <i class='bx bx-calendar'></i>
+            <h3>Appointments</h3>
+            
+            <a href="appointenthistory.html" class="btn">View</a>
+        </div>
+        <div class="box">
+          <i class='bx bx-add-to-queue'></i>
+            <h3>Add Doctors</h3>
+            
+            <a href="Addoctor.html" class="btn">ADD</a>
+        </div> <div class="box">
+          <i class='bx bx-add-to-queue'></i>
+            <h3>Add Specialization</h3>
+            
+            <a href="adddoctorspecialization.html" class="btn">ADD</a>
+        </div> <div class="box">
+          <i class='bx bx-search' ></i>
+            <h3>Patient Search</h3>
+            
+            <a href="patientsearch.html" class="btn">Search</a>
+        </div>
+        <div class="box">
+          <i class='bx bx-receipt'></i>
+            <h3>Queries</h3>
+            
+            <a href="queries.html" class="btn">Queries</a>
+        </div>
+
+      
+
+    </div>
+
+</div>
+
+
+
+
+<script>
+   const image = document.getElementById('myimg');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+
+   
+    function displayUsername() {
+      usernameDisplay.textContent = 'Admin'; 
+      usernameDisplay.style.display = 'block';
+    }
+
+    function hideUsername() {
+      usernameDisplay.style.display = 'none';
+    }
+
+
+    image.addEventListener('mouseover', displayUsername);
+    image.addEventListener('mouseout', hideUsername);
+  </script>
+</script>
+</body>
+</html>

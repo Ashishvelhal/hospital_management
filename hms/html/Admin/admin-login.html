@@ -1,0 +1,40 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/Doc-admin.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Admin Login</h1>
+       <div class="form">
+    
+            <label>username</label>
+            <input type="text" placeholder="Enter username" id="name" required>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" id="password" required>
+          
+            <button onclick="check()">Login</button>  
+
+
+       
+       </div>
+    </div>
+    <script>
+  function check() {
+    let username = document.getElementById('name').value;
+    let password = document.getElementById('password').value;
+    if (username === "admin" && password === "admin123") {
+        alert("Login Successfull")
+        window.location.href = "admin-dashborad.html";
+    } else {
+        alert("Wrong username or password");
+    }
+}
+    </script>
+</body>
+</html>

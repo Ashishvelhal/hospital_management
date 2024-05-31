@@ -1,0 +1,71 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/hms/css/Doc-admin.css">
+    <title>Doctor Login</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading">Doctor Login</h1>
+       <div class="form">
+        <form action="">
+            <label>username</label>
+            <input type="text" placeholder="Enter username" id="username"  required>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" id="password" required>
+            <p><a href="/hms/html/Doctor/doctor-forgot.html">Forgot Password ?</a></p>
+<input type="submit" value="Login" id="log">
+
+
+        </form>
+       </div>
+    </div>
+    <script>
+        async function getDoctorDetails(e) {
+    try {
+        e.preventDefault();
+        const response = await fetch("http://localhost:3000/Doctordata");
+        
+        const responseData = await response.json();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            let d;
+        
+        
+            let isMatch = false;
+            responseData.forEach(doctor => {
+                if (doctor.email === username && doctor.pass === password) {
+                
+                    isMatch = true;
+                   d=doctor.name;
+                }
+            });
+            
+            if (isMatch) {
+                alert("Login Successful");
+                sessionStorage.setItem('dname',d)
+              
+                window.location.href = "doctor-dashboard.html"; 
+            } else {
+                alert('Invalid email or password');
+            }
+       
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+
+
+    document.getElementById('log').addEventListener('click', getDoctorDetails);
+       
+ 
+    </script>
+</body>
+</html>
